@@ -1,0 +1,8 @@
+.dash{
+    background-color: rgb(245, 75, 75);
+    padding:5px;
+    display: flex;
+    justify-content: space-around;
+    color: rgb(255, 255, 255);
+margin-top:2px;
+}

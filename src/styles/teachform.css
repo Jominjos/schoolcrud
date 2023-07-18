@@ -1,0 +1,12 @@
+#teach-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#heading{
+    background-color: aqua !important;
+}
+.action{
+    text-align: center;
+}
