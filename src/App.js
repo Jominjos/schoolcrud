@@ -26,7 +26,7 @@ function App() {
         <Teachform setTeachers={setTeachers} teachers={teachers}/>
       </div>
     </div>
-    {/* <Footer/> */}
+    { <Footer/> }
 </div>
   
   );

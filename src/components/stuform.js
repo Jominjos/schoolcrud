@@ -84,7 +84,7 @@ function editsubmit(event){
     let newstudents =[...students] 
     let newstudents1 = newstudents.map((d,i)=>{
 
-        if(d.id == euser.id) return euser
+        if(d.id === euser.id) return euser
         else return d
     })
 
@@ -103,7 +103,7 @@ function deluser(data) {
     //console.log(delid);
     let newstudents =[...students] 
     newstudents =newstudents.filter(d =>{
-        if( d.id != delid )return true ;
+        if( d.id !== delid )return true ;
         else return false;}
     )
     setstudents(newstudents);
