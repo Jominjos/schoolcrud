@@ -20,7 +20,7 @@ const[edit ,setedit]  =useState(false)
 
 const[ euser , seteuser]=useState(dvalue)
 function edituser(data){
-    console.log(data);
+    //console.log(data);
     setedit(true)
     seteuser(data)
     
@@ -43,7 +43,7 @@ function handleEditChange (event){
     let [name3 , value3] =[event.target.name , event.target.value];
     let wal = {...euser,[name3]:value3}
     seteuser(wal)
-    console.log(wal);
+    //console.log(wal);
     
 }
 
@@ -68,7 +68,7 @@ function formSubmit(event){
    let newteachers =[...teachers] 
     newteachers.push(valu)
    
-   console.log(newteachers);
+   //console.log(newteachers);
    setTeachers(newteachers)
    setuser(dvalue)
    
@@ -80,7 +80,7 @@ function formSubmit(event){
 
 function editsubmit(event){
     event.preventDefault()
-    console.log(euser);
+    //console.log(euser);
     let newteachers =[...teachers] 
     let newteachers1 = newteachers.map((d,i)=>{
 
