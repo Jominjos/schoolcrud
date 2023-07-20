@@ -176,7 +176,7 @@ function deluser(data) {
       </form> 
       </>    :(
       <>
-      <h4>EDIT STUDENT</h4>
+      <h4 className="heading">EDIT STUDENT</h4>
       <form className="stu-ed-form" onSubmit={editsubmit}  id="form2">
       <div className="mb-3">
             <div className="flex">
