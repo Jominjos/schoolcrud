@@ -105,7 +105,7 @@ export default function Stuform({
           <form className="stu-form" onSubmit={formSubmit}>
             <div className="mb-3">
               <div className="flex">
-                <label className="form-label">Name:</label>
+                <label className="form-label">Name</label>
                 <input
                   type="text"
                   className="form-control"
@@ -118,7 +118,7 @@ export default function Stuform({
             </div>
             <div className="mb-3">
               <div className="flex">
-                <label className="form-label">student id:</label>
+                <label className="form-label">Student id</label>
                 <input
                   type="text"
                   className="form-control"
@@ -131,7 +131,7 @@ export default function Stuform({
             </div>
             <div className="mb-3">
               <div className="flex">
-                <label className="form-label">Class:</label>
+                <label className="form-label">Class</label>
                 <input
                   type="text"
                   className="form-control"
@@ -172,7 +172,7 @@ export default function Stuform({
           <form className="stu-ed-form" onSubmit={editsubmit} id="form2">
             <div className="mb-3">
               <div className="flex">
-                <label className="form-label">Name-</label>
+                <label className="form-label">Name</label>
                 <input
                   type="text"
                   className="form-control"
@@ -184,7 +184,7 @@ export default function Stuform({
             </div>
             <div className="mb-3">
               <div className="flex">
-                <label className="form-label">student id-</label>
+                <label className="form-label">Student id</label>
                 <input
                   type="text"
                   className="form-control"
@@ -196,7 +196,7 @@ export default function Stuform({
             </div>
             <div className="mb-3">
               <div className="flex">
-                <label className="form-label">class-</label>
+                <label className="form-label">Class</label>
                 <input
                   type="text"
                   className="form-control"
