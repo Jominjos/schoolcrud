@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "../styles/stuform.css";
-import Row from "./trow";
-export default function Stuform({ students = {}, setstudents = {} }) {
-  const dvalue = { id: "", name: "", student_id: "", class: "" };
 
-  const [ids, setids] = useState(1);
+import Row from "./trow";
+import axios from "axios";
+export default function Stuform({ students = {}, setstudents = {} }) {
+  const dvalue = { id: "", name: "", stu_id: "", stu_class: "" };
 
   const [user, setuser] = useState(dvalue);
   const [edit, setedit] = useState(false);
@@ -27,8 +27,9 @@ export default function Stuform({ students = {}, setstudents = {} }) {
   function handleEditChange(event) {
     let [name3, value3] = [event.target.name, event.target.value];
     let wal = { ...euser, [name3]: value3 };
+    console.log(wal);
     seteuser(wal);
-    //console.log(wal);
+    console.log(euser);
   }
 
   function formreset() {
@@ -42,42 +43,40 @@ export default function Stuform({ students = {}, setstudents = {} }) {
 
   function formSubmit(event) {
     event.preventDefault();
-    let ide = ids;
-    setids((prev) => prev + 1);
 
-    let valu = { ...user, id: ide };
+    let valu = { ...user };
     //console.log(valu);
-    let newstudents = [...students];
-    newstudents.push(valu);
+    axios
+      .post("https://scool-swart.vercel.app/api/student", { ...valu })
+      .then((res) => {
+        console.log(res);
+      });
 
-    //console.log(newstudents);
-    setstudents(newstudents);
     setuser(dvalue);
   }
 
   function editsubmit(event) {
     event.preventDefault();
-    //console.log(euser);
-    let newstudents = [...students];
-    let newstudents1 = newstudents.map((d, i) => {
-      if (d.id === euser.id) return euser;
-      else return d;
-    });
-
-    setstudents(newstudents1);
-
+    console.log(euser);
+    axios
+      .put("https://scool-swart.vercel.app/api/student", { ...euser })
+      .then((res) => {
+        console.log(res);
+      });
     setedit(false);
   }
 
   function deluser(data) {
     let delid = data.id;
     //console.log(delid);
-    let newstudents = [...students];
-    newstudents = newstudents.filter((d) => {
-      if (d.id !== delid) return true;
-      else return false;
-    });
-    setstudents(newstudents);
+
+    axios
+      .delete("https://scool-swart.vercel.app/api/student", {
+        data: { id: delid + "" },
+      })
+      .then((res) => {
+        console.log(res);
+      });
     setedit(false);
   }
 
@@ -108,8 +107,8 @@ export default function Stuform({ students = {}, setstudents = {} }) {
                   className="form-control"
                   required
                   onChange={eventHandle}
-                  name="student_id"
-                  value={user.student_id}
+                  name="stu_id"
+                  value={user.stu_id}
                 />
               </div>
             </div>
@@ -121,8 +120,8 @@ export default function Stuform({ students = {}, setstudents = {} }) {
                   className="form-control"
                   required
                   onChange={eventHandle}
-                  name="class"
-                  value={user.class}
+                  name="stu_class"
+                  value={user.stu_class}
                 />
               </div>
             </div>
@@ -163,8 +162,8 @@ export default function Stuform({ students = {}, setstudents = {} }) {
                   type="text"
                   className="form-control"
                   onChange={handleEditChange}
-                  value={euser.student_id}
-                  name="student_id"
+                  value={euser.stu_id}
+                  name="stu_id"
                 />
               </div>
             </div>
@@ -175,8 +174,8 @@ export default function Stuform({ students = {}, setstudents = {} }) {
                   type="text"
                   className="form-control"
                   onChange={handleEditChange}
-                  value={euser.class}
-                  name="class"
+                  value={euser.stu_class}
+                  name="stu_class"
                 />
               </div>
             </div>
