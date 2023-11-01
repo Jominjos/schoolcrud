@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import "../styles/stuform.css";
-
+import { ClipLoader } from "react-spinners";
 import Row from "./trow";
 import axios from "axios";
-export default function Stuform({ students = {}, setstudents = {} }) {
+export default function Stuform({
+  students = {},
+
+  setDbchange = {},
+}) {
   const dvalue = { id: "", name: "", stu_id: "", stu_class: "" };
 
   const [user, setuser] = useState(dvalue);
@@ -15,6 +19,12 @@ export default function Stuform({ students = {}, setstudents = {} }) {
     setedit(true);
     seteuser(data);
   }
+
+  //spinner loading
+
+  const [Eloading, setELoading] = useState(false);
+  const [Sloading, setSLoading] = useState(false);
+  const [Dloading, setDLoading] = useState(false);
 
   function eventHandle(event) {
     let [name2, value2] = [event.target.name, event.target.value];
@@ -43,13 +53,15 @@ export default function Stuform({ students = {}, setstudents = {} }) {
 
   function formSubmit(event) {
     event.preventDefault();
-
+    setSLoading(true);
     let valu = { ...user };
     //console.log(valu);
     axios
       .post("https://scool-swart.vercel.app/api/student", { ...valu })
       .then((res) => {
         console.log(res);
+        setDbchange((prev) => !prev);
+        setSLoading(false);
       });
 
     setuser(dvalue);
@@ -57,34 +69,39 @@ export default function Stuform({ students = {}, setstudents = {} }) {
 
   function editsubmit(event) {
     event.preventDefault();
+    setELoading(true);
     console.log(euser);
     axios
       .put("https://scool-swart.vercel.app/api/student", { ...euser })
       .then((res) => {
         console.log(res);
+        setDbchange((prev) => !prev);
+        setELoading(false);
+        setedit(false);
       });
-    setedit(false);
   }
 
   function deluser(data) {
     let delid = data.id;
     //console.log(delid);
-
+    setDLoading(true);
     axios
       .delete("https://scool-swart.vercel.app/api/student", {
         data: { id: delid + "" },
       })
       .then((res) => {
         console.log(res);
+        setDbchange((prev) => !prev);
+        setDLoading(false);
+        setedit(false);
       });
-    setedit(false);
   }
 
   return (
     <>
       {!edit ? (
         <>
-          <h5 className="heading">ADD STUDENT</h5>
+          <h4 className="heading">ADD STUDENT</h4>
           <form className="stu-form" onSubmit={formSubmit}>
             <div className="mb-3">
               <div className="flex">
@@ -125,13 +142,23 @@ export default function Stuform({ students = {}, setstudents = {} }) {
                 />
               </div>
             </div>
-            <div>
-              <button type="submit" className="btn btn-primary">
+            <div className="d-flex align-items-center">
+              <button
+                type="submit"
+                className="btn btn-primary align-items-center d-flex me-2 "
+              >
+                <ClipLoader color="#ffffff" loading={Sloading} size={10} />
                 Submit
               </button>
+              <div className=" d-block width-25">
+                <div>
+                  <ClipLoader color="#e71a1a" loading={Dloading} size={25} />
+                </div>
+              </div>
+
               <button
                 type="reset"
-                className="btn btn-danger"
+                className="btn btn-danger ms-2"
                 onClick={formreset}
               >
                 Reset
@@ -180,7 +207,8 @@ export default function Stuform({ students = {}, setstudents = {} }) {
               </div>
             </div>
             <div>
-              <button type="submit" className="btn btn-danger">
+              <button type="submit" className="btn btn-danger me-5">
+                <ClipLoader color="#ffffff" loading={Eloading} size={10} />
                 Save
               </button>
               <button
@@ -195,7 +223,7 @@ export default function Stuform({ students = {}, setstudents = {} }) {
         </>
       )}
 
-      <table className="table table-bordered ">
+      <table className="table table-bordered mt-5 ">
         <thead>
           <tr>
             <th>name</th>
@@ -213,6 +241,7 @@ export default function Stuform({ students = {}, setstudents = {} }) {
                 item={item}
                 deluser={deluser}
                 edituser={edituser}
+                Dloading={Dloading}
               />
             ))}
         </tbody>
